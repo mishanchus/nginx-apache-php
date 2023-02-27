@@ -1,0 +1,46 @@
+---
+- name: Install packadges and run web servers 
+  hosts: all
+  become: yes
+  become_method: sudo
+
+  tasks:
+  - name: Install packages
+    apt: 
+      pkg: 
+      - vim
+      - wget
+      - htop
+      - tmux
+      - apache2
+      - apt-transport-https
+      update_cache: yes
+      state: latest
+
+  - name: Change apache port
+    shell: sed -i "s/80/8888/" /etc/apache2/ports.conf
+
+  - name: Restart apache service
+    service: name=apache2.service state=restarted enabled=yes
+
+  - name: Install nginx
+    apt: name=nginx state=latest
+
+  - name: Enable nginx
+    service: name=nginx.service state=started enabled=yes
+
+  - name: Php repo addition
+    shell: echo "deb https://debian.octopuce.fr/snapshots/sury-php/20220630/ stretch main" | sudo tee /etc/apt/sources.list.d/php.list && wget -qO - https://debian.octopuce.fr/sury-php/apt.gpg | sudo apt-key add -
+    
+  - name: php and php-fpm installation
+    apt:
+     update_cache: yes
+     pkg:
+     - php5.6
+     - php5.6-fpm
+
+  # - name: Download php 5.6 source code
+  #   get_url: url=https://www.php.net/distributions/php-5.6.10.tar.gz dest='/home/vagrant'
+
+  # - name: Php installation
+  #   shell: cd /home/vagrant && tar -xvf php-5.6.10.tar.gz && cd php-5.6.10/ && sudo apt-get install && autotools-dev && ./configure && make && make install
