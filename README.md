@@ -5,6 +5,7 @@
 - установлены Vagrant и VirtualBox
 - включен VPN 
 - отсутствует плагин vagrant-vbguest
+- отсутствуют ВМ с именем vagrant
 
 `vagrant plugin list`  
 `No plugins installed.`
@@ -23,7 +24,7 @@
     `box:`  
 `==> box: Successfully added box 'debian9' (v0) for 'virtualbox'!`  
   
-  
+
 Запуск скрипта:  
   
   `vagrant up --revision`  
