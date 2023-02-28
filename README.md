@@ -60,3 +60,8 @@
 Для обновления версии на ВМ необходимо запустить плейбук:
   
 `ansible-playbook /vagrant/update_php_playbook.yml -i /vagrant/inventory`
+
+Версия изменена:
+  
+![image](https://user-images.githubusercontent.com/105548111/221895901-6994c5ce-d04c-4b60-95d1-35cfb86dd835.png)
+
