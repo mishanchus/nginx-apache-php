@@ -6,7 +6,7 @@
 - включен VPN 
 - отсутствует плагин vagrant-vbguest
 
-`> vagrant plugin list`  
+    `> vagrant plugin list`  
 `No plugins installed.`
   
   
