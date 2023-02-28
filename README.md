@@ -1,4 +1,5 @@
 ## Краткое описание
+Создание ВМ со связкой Nginx - Apache - PHP-fpm посредством Vagrant.
 
 ### Предварительные требования:
 - установлены Vagrant и VirtualBox
@@ -27,9 +28,12 @@
   
   `vagrant up --revision`  
   
+ 
 Подключение к созданной ВМ:  
   
 `vagrant ssh`  
   
+  Созданной виртульной машине будет присвоен адрес 192.168.56.34, при необходимости можно заменить в конфигурации Vagrantfile (node.vm.network :private_network, ip: "192.168.56.34").  
+  На 
   
 `ansible-playbook /vagrant/update_php_playbook.yml -i /vagrant/inventory`
