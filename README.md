@@ -6,7 +6,7 @@
 - включен VPN 
 - отсутствует плагин vagrant-vbguest
 
-    `> vagrant plugin list`  
+`> vagrant plugin list`  
 `No plugins installed.`
   
   
@@ -54,5 +54,9 @@
     
 ![image](https://user-images.githubusercontent.com/105548111/221891216-15c1e9a7-cb4a-4484-89d3-122aa6cb517d.png)
 
-    
+
+## Обновление версии PHP
+  
+Для обновления версии на ВМ необходимо запустить плейбук:
+  
 `ansible-playbook /vagrant/update_php_playbook.yml -i /vagrant/inventory`
