@@ -34,6 +34,6 @@
 `vagrant ssh`  
   
   Созданной виртульной машине будет присвоен адрес 192.168.56.34, при необходимости можно заменить в конфигурации Vagrantfile (node.vm.network :private_network, ip: "192.168.56.34").  
-  На 
+  На ВМ
   
 `ansible-playbook /vagrant/update_php_playbook.yml -i /vagrant/inventory`
