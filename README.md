@@ -23,5 +23,13 @@
 `==> box: Successfully added box 'debian9' (v0) for 'virtualbox'!`  
   
   
-
+Запуск скрипта:  
+  
+  `vagrant up --revision`  
+  
+Подключение к созданной ВМ:  
+  
+`vagrant ssh`  
+  
+  
 `ansible-playbook /vagrant/update_php_playbook.yml -i /vagrant/inventory`
