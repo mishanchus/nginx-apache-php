@@ -1,11 +1,12 @@
 ## Краткое описание
 
-# Предварительные требования:
+## Предварительные требования:
 - установленные Vagrant и VirtualBox
 - включен VPN 
 - отсутствует плагин vagrant-vbguest
 
-`> vagrant plugin list  No plugins installed. `
+`> vagrant plugin list  
+No plugins installed. `
 <hr>
 
 
