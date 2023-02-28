@@ -17,7 +17,7 @@ Vagrant.configure("2") do |config|
       ansible.verbose = true
       ansible.install = true
       ansible.limit = "all"
-      ansible.playbook = "playbook.yml"
+      ansible.playbook = "initial_deploy_playbook.yml"
       ansible.inventory_path = "inventory"
     end
   end

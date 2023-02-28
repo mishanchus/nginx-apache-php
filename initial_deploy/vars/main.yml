@@ -1,0 +1,10 @@
+apache_port: "8888"
+php_version: "5.6"
+packages:
+  - vim
+  - wget
+  - htop
+  - tmux
+  - apache2
+  - apt-transport-https
+  - libapache2-mod-php
