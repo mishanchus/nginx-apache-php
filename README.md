@@ -40,19 +40,19 @@
     
 Виртуальной машине будет присвоен адрес 192.168.56.34, при необходимости можно заменить в конфигурации Vagrantfile (node.vm.network :private_network, ip: "192.168.56.34").  
   
-  На порту 80 работает nginx, который перенаправит запросы к apache.
+На порту 80 работает nginx, который перенаправит запросы к apache.
     
-    Откроем http://192.168.56.34/ в браузере на хосте.
+Откроем http://192.168.56.34/ в браузере на хосте.
     
-    ![image](https://user-images.githubusercontent.com/105548111/221890736-35a6c26d-43cc-4655-bff4-400eb916f2d3.png)
+![image](https://user-images.githubusercontent.com/105548111/221890736-35a6c26d-43cc-4655-bff4-400eb916f2d3.png)
   
-  Для наглядности сшаблонизировал версию PHP на html страницу.
+Для наглядности сшаблонизировал версию PHP на html страницу.
     
-    Введем данные и отправим.
+Введем данные и отправим.
   
-  Скрипт отработал:
+Скрипт отработал:
     
-    ![image](https://user-images.githubusercontent.com/105548111/221891216-15c1e9a7-cb4a-4484-89d3-122aa6cb517d.png)
+![image](https://user-images.githubusercontent.com/105548111/221891216-15c1e9a7-cb4a-4484-89d3-122aa6cb517d.png)
 
     
 `ansible-playbook /vagrant/update_php_playbook.yml -i /vagrant/inventory`
