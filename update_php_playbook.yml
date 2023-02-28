@@ -11,7 +11,7 @@
   - name: Php installation
     apt:
      update_cache: yes
-     pkg: name=php{{php_version}}
+     pkg: php{{php_version}}
 
   - name: Choose php{{php_version}} as default
     shell:  echo "/usr/bin/php{{php_version}}" | update-alternatives --config php
