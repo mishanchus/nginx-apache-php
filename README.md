@@ -1,5 +1,5 @@
 ## Краткое описание
-Создание ВМ со связкой Nginx - Apache посредством Vagrant.
+Создание ВМ со связкой Nginx - Apache посредством Vagrant и Ansible.
 
 ### Предварительные требования:
 - установлены Vagrant и VirtualBox
