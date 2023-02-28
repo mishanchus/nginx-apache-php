@@ -1,0 +1,32 @@
+---
+- name: Update PHP version 
+  hosts: all
+  become: yes
+  become_method: sudo
+  
+  vars:
+    php_version: "7.2"
+
+  tasks:
+  - name: Php and php-fpm installation
+    apt:
+     update_cache: yes
+     pkg:
+     - php{{php_version}}
+     - php{{php_version}}-fpm
+
+  - name: Choose php{{php_version}} as default
+    shell:  echo "/usr/bin/php{{php_version}}" | update-alternatives --config php
+
+  - name: Save php version into variable
+    shell: php -v | awk '{print $1, $2}' | head -n 1
+    register: result
+
+  - name: Generate index.html
+    template: src=/vagrant/code/index.j2 dest=/var/www/html/index.html
+
+  - name: Enable modules
+    shell: a2enmod proxy_fcgi setenvif && a2enconf php{{php_version}}-fpm
+
+  - name: Restart apache
+    service: name=apache2.service state=restarted enabled=yes
