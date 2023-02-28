@@ -6,14 +6,14 @@
 - включен VPN 
 - отсутствует плагин vagrant-vbguest
 
-`> vagrant plugin list`  
+`vagrant plugin list`  
 `No plugins installed.`
   
   
 
 Также необходимо добавить box - пакет с дистрибутивом, в нашем случае Debian 9 объемом 10Гб.  
   
-`> vagrant box add debian9 https://app.vagrantup.com/debian/boxes/stretch64/versions/9.9.0/providers/virtualbox.box`  
+`vagrant box add debian9 https://app.vagrantup.com/debian/boxes/stretch64/versions/9.9.0/providers/virtualbox.box`  
   
 Ждем вывод об успешном добавлении.  
   
