@@ -1,46 +1,71 @@
 ---
-- name: Install packadges and run web servers 
+- name: Install packages and run web servers 
   hosts: all
   become: yes
   become_method: sudo
 
-  tasks:
-  - name: Install packages
-    apt: 
-      pkg: 
+  vars:
+    apache_port: "8888"
+    php_version: "5.6"
+    packages:
       - vim
       - wget
       - htop
       - tmux
       - apache2
       - apt-transport-https
+      - libapache2-mod-php
+
+  tasks:
+  - name: Install packages
+    apt: 
+      pkg: "{{ packages }}"
       update_cache: yes
       state: latest
 
   - name: Change apache port
-    shell: sed -i "s/80/8888/" /etc/apache2/ports.conf
-
-  - name: Restart apache service
+    shell: sed -i "s/80/{{apache_port}}/" /etc/apache2/ports.conf
+    
+  - name: Restart apache to avoid conflict with nginx
     service: name=apache2.service state=restarted enabled=yes
 
   - name: Install nginx
     apt: name=nginx state=latest
 
-  - name: Enable nginx
-    service: name=nginx.service state=started enabled=yes
+  - name: Move files to www/html
+    copy: src={{item}} dest=/var/www/html
+    with_fileglob:
+    - "/vagrant/code/*"
+
+  - name: Change nginx config
+    copy: src=/vagrant/default dest=/etc/nginx/sites-enabled
+    notify: Restart nginx
+
+  - name: Correct apache config
+    shell: cat /vagrant/apache.txt >> /etc/apache2/apache2.conf
 
   - name: Php repo addition
-    shell: echo "deb https://debian.octopuce.fr/snapshots/sury-php/20220630/ stretch main" | sudo tee /etc/apt/sources.list.d/php.list && wget -qO - https://debian.octopuce.fr/sury-php/apt.gpg | sudo apt-key add -
+    shell: echo "deb https://debian.octopuce.fr/snapshots/sury-php/20220630/ stretch main" | tee /etc/apt/sources.list.d/php.list && wget -qO - https://debian.octopuce.fr/sury-php/apt.gpg | apt-key add -
     
   - name: php and php-fpm installation
     apt:
      update_cache: yes
      pkg:
-     - php5.6
-     - php5.6-fpm
+     - php{{php_version}}
+     - php{{php_version}}-fpm
 
-  # - name: Download php 5.6 source code
-  #   get_url: url=https://www.php.net/distributions/php-5.6.10.tar.gz dest='/home/vagrant'
+  - name: Choose php{{php_version}} as default
+    shell:  echo "/usr/bin/php{{php_version}}" | update-alternatives --config php
 
-  # - name: Php installation
-  #   shell: cd /home/vagrant && tar -xvf php-5.6.10.tar.gz && cd php-5.6.10/ && sudo apt-get install && autotools-dev && ./configure && make && make install
+  - name: Enable modules
+    shell: a2enmod proxy_fcgi setenvif && a2enconf php{{php_version}}-fpm
+    notify: Restart apache
+
+  handlers:
+    - name: Restart apache
+      service: name=apache2.service state=restarted enabled=yes
+
+    - name: Restart nginx
+      service: name=nginx.service state=restarted enabled=yes
+
+    

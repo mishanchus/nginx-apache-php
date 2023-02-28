@@ -1,0 +1,5 @@
+<Directory /var/www/*/www>
+    AllowOverride All
+    Options Indexes ExecCGI FollowSymLinks
+    Require all granted
+</Directory>
