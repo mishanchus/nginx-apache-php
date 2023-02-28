@@ -20,15 +20,14 @@
 - name: Correct apache config
   shell: cat /vagrant/initial_deploy/files/apache.txt >> /etc/apache2/apache2.conf
 
-- name: Php repo addition
+- name: PHP repo addition
   shell: echo "deb https://debian.octopuce.fr/snapshots/sury-php/20220630/ stretch main" | tee /etc/apt/sources.list.d/php.list && wget -qO - https://debian.octopuce.fr/sury-php/apt.gpg | apt-key add -
 
-- name: Php and php-fpm installation
+- name: PHP installation
   apt:
    update_cache: yes
-   pkg:
-   - php{{php_version}}
-   - php{{php_version}}-fpm
+   pkg: php{{php_version}}
+
 
 - name: Choose php{{php_version}} as default
   shell:  echo "/usr/bin/php{{php_version}}" | update-alternatives --config php
@@ -44,6 +43,5 @@
 - name: Generate index.html
   template: src=/vagrant/code/index.j2 dest=/var/www/html/index.html
 
-- name: Enable modules
-  shell: a2enmod proxy_fcgi setenvif && a2enconf php{{php_version}}-fpm
-  notify: Restart apache
+- name: Restart apache
+  service: name=apache2.service state=restarted enabled=yes
